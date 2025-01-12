@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginPage } from './login/login.page';  // Importar LoginPage directamente
 import { RegisterPage } from './register/register.page';
+import { CatalogPage } from './catalog/catalog.page';
 
 const routes: Routes = [
   {
@@ -15,13 +16,29 @@ const routes: Routes = [
   },
 
   {
+    path: 'catalog',
+    component: CatalogPage, // Si es standalone
+  },
+
+  {
     path: '',
     redirectTo: 'login',
     pathMatch: 'full',
   },
+
+  {
+    path: '',
+    redirectTo: 'catalog',
+    pathMatch: 'full',
+  },
+  
   {
     path: 'register',
     loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
+  },
+  {
+    path: 'catalog',
+    loadChildren: () => import('./catalog/catalog.module').then( m => m.CatalogPageModule)
   },
 ];
 
