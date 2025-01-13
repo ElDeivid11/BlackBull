@@ -1,5 +1,4 @@
 <ion-header>
-  
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/catalog"></ion-back-button>
@@ -15,7 +14,10 @@
       <img [src]="profileImage" alt="Foto de perfil" class="profile-image" />
       
       <!-- Botón de edición (ícono de lápiz) -->
-      <ion-icon name="create-outline" class="edit-icon" (click)="editProfileImage()"></ion-icon>
+      <ion-icon name="create-outline" class="edit-icon" (click)="selectImage()"></ion-icon>
+
+      <!-- Input para seleccionar imagen (oculto) -->
+      <input type="file" accept="image/*" (change)="onImageSelected($event)" #fileInput style="display: none" />
     </div>
 
     <!-- Información del usuario -->

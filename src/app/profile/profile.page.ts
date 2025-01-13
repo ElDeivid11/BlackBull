@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 
@@ -17,16 +16,29 @@ export class ProfilePage {
 
   constructor(private router: Router) {}
 
-  // Función para editar la imagen de perfil
-  editProfileImage() {
-    // Aquí puedes agregar la lógica para cambiar la foto de perfil
-    // Por ejemplo, abrir la galería o cámara para seleccionar una imagen
-    console.log('Editar imagen de perfil');
+  // Función para abrir el input de selección de imagen
+  selectImage() {
+    const fileInput: HTMLInputElement = document.querySelector('#fileInput')!;
+    fileInput.click(); // Simula el clic en el input file
+  }
+
+  // Función que maneja la imagen seleccionada
+  onImageSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input?.files?.length) {
+      const file = input.files[0];
+      const reader = new FileReader();
+      
+      reader.onload = (e: any) => {
+        this.profileImage = e.target.result; // Establece la nueva imagen
+      };
+      
+      reader.readAsDataURL(file); // Lee el archivo como una URL de datos (base64)
+    }
   }
 
   // Función para cerrar sesión
   logout() {
-    // Aquí puedes agregar la lógica para cerrar sesión
     console.log('Cerrar sesión');
     this.router.navigate(['/login']);
   }

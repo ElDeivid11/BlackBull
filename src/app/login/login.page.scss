@@ -26,10 +26,19 @@ ion-content {
   align-items: center; /* Centra los elementos horizontalmente */
 }
 
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+  padding-left: 16px;
+}
+
+
 /* Estilo del logo */
 .logo {
   max-width: 120px; /* Ajusta el tamaño */
   margin-bottom: 5px; /* Reduce el espacio entre el logo y el título */
+  filter: brightness(2.2); /* Aumenta el brillo en un 50% */
 }
 
 /* Estilo del título "POWERBULL" como imagen */
