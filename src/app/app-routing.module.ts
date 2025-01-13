@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginPage } from './login/login.page';  // Importar LoginPage directamente
 import { RegisterPage } from './register/register.page';
 import { CatalogPage } from './catalog/catalog.page';
+import { ForgotPasswordPage } from './forgotpassword/forgotpassword.page';
 
 const routes: Routes = [
   {
@@ -13,6 +14,11 @@ const routes: Routes = [
   {
     path: 'register',
     component: RegisterPage
+  },
+
+  {
+    path: 'forgotpassword',
+    component: ForgotPasswordPage,
   },
 
   {
@@ -31,6 +37,11 @@ const routes: Routes = [
     redirectTo: 'catalog',
     pathMatch: 'full',
   },
+  {
+    path: '',
+    redirectTo: 'forgotpassword',
+    pathMatch: 'full',
+  },
   
   {
     path: 'register',
@@ -40,6 +51,12 @@ const routes: Routes = [
     path: 'catalog',
     loadChildren: () => import('./catalog/catalog.module').then( m => m.CatalogPageModule)
   },
+  {
+    path: 'forgotpassword',
+    loadChildren: () => import('./forgotpassword/forgotpassword.module').then(m => m.ForgotPasswordPageModule)
+
+  },
+
 ];
 
 @NgModule({
