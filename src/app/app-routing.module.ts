@@ -4,6 +4,7 @@ import { LoginPage } from './login/login.page';  // Importar LoginPage directame
 import { RegisterPage } from './register/register.page';
 import { CatalogPage } from './catalog/catalog.page';
 import { ForgotPasswordPage } from './forgotpassword/forgotpassword.page';
+import { ProfilePage } from './profile/profile.page';
 
 const routes: Routes = [
   {
@@ -27,8 +28,19 @@ const routes: Routes = [
   },
 
   {
+    path: 'profile',
+    component: ProfilePage, // Si es standalone
+  },
+
+  {
     path: '',
     redirectTo: 'login',
+    pathMatch: 'full',
+  },
+
+  {
+    path: '',
+    redirectTo: 'profile',
     pathMatch: 'full',
   },
 
@@ -56,6 +68,12 @@ const routes: Routes = [
     loadChildren: () => import('./forgotpassword/forgotpassword.module').then(m => m.ForgotPasswordPageModule)
 
   },
+  {
+    path: 'profile',
+    loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
+  },
+
+  
 
 ];
 

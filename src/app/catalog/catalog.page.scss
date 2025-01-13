@@ -32,7 +32,7 @@ ion-searchbar {
 /* Catálogo de productos */
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, 1fr); /* Diseño original */
   gap: 16px;
   padding: 16px;
 }
@@ -51,10 +51,8 @@ ion-searchbar {
   max-width: 150%;
   border-radius: 50px;
   margin-bottom: 0px;
-  margin: -40px 0 0 -38px;
+  margin: -40px 0 0 -40px;
 }
-
-
 
 /* Precio de los productos */
 .product-price {
@@ -65,13 +63,57 @@ ion-searchbar {
 
 /* Imagen del título "Bull Pack" */
 .product-title-image {
-  width: 500%; /* Ajusta el tamaño de la imagen */
+  width: 500%; /* Diseño original */
   margin: -60px auto; /* Centra la imagen */
-  
 }
 
+/* Logo de WhatsApp */
 .whatsapp-logo {
   width: 24px; /* Ajusta el tamaño del logo */
   height: auto;
   margin-right: 10px; /* Espacio entre el icono y el texto */
+}
+
+/* Media Queries para dispositivos móviles */
+@media (max-width: 768px) {
+  .header-icon {
+    font-size: 1.5rem;
+  }
+
+  .logo {
+    width: 20vw;
+    max-width: 60px;
+  }
+
+  .search-container {
+    margin: 8px;
+  }
+
+  .product-grid {
+    grid-template-columns: 1fr; /* Una columna en móviles */
+    gap: 8px;
+  }
+
+  .product-card {
+    padding: 12px;
+  }
+
+  .product-image {
+    max-width: 120%;
+    margin: -20px auto 0 auto;
+  }
+
+  .product-price {
+    font-size: 1rem;
+  }
+
+  .product-title-image {
+    width: 90%;
+    max-width: 300px;
+  }
+}
+
+/* Media Queries para tabletas: Mantener diseño original */
+@media (min-width: 768px) and (max-width: 1024px) {
+  /* No se requiere ningún cambio aquí, se mantiene el diseño original */
 }

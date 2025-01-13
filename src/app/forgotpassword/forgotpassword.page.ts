@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';  // Asegúrate de importar CommonModule
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-forgotpassword',
@@ -13,11 +15,22 @@ import { CommonModule } from '@angular/common';  // Asegúrate de importar Commo
 export class ForgotPasswordPage {
   email: string = '';
   showConfirmation: boolean = false;
+ 
+  constructor(private router: Router) {}
 
   onSubmit() {
     if (this.email) {
+      console.log('Correo enviado:', this.email);
       this.showConfirmation = true;
-      this.email = '';
+    } else {
+      console.error('Correo no válido');
     }
   }
+
+  goToLogin() {
+    this.router.navigate(['/login']); // Navega a la página de login
+  }
 }
+
+
+  

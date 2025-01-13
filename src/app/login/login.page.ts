@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
@@ -21,7 +22,7 @@ export class LoginPage {
       console.log('Email:', this.email);
       console.log('Contraseña:', this.password);
       
-      this.router.navigate(['/home']);
+      this.router.navigate(['/catalog']);
     } else {
       console.error('Faltan campos');
     }

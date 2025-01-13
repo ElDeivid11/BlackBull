@@ -1,0 +1,30 @@
+<ion-header>
+  
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/catalog"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="center-title">Perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="profile-container">
+    <!-- Foto de perfil -->
+    <div class="profile-image-container">
+      <img [src]="profileImage" alt="Foto de perfil" class="profile-image" />
+      
+      <!-- Botón de edición (ícono de lápiz) -->
+      <ion-icon name="create-outline" class="edit-icon" (click)="editProfileImage()"></ion-icon>
+    </div>
+
+    <!-- Información del usuario -->
+    <div class="profile-info">
+      <h3 class="username">{{ username }}</h3>
+      <p class="email">{{ email }}</p>
+    </div>
+
+    <!-- Botón para cerrar sesión -->
+    <ion-button expand="block" color="danger" class="logout-button" (click)="logout()">Cerrar sesión</ion-button>
+  </div>
+</ion-content>
