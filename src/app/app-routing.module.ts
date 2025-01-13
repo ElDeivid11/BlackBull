@@ -71,10 +71,8 @@ const routes: Routes = [
   {
     path: 'profile',
     loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
-  },  {
-    path: 'product',
-    loadChildren: () => import('./product/product.module').then( m => m.ProductPageModule)
   },
+
 
 
   
