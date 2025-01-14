@@ -5,6 +5,8 @@ import { RegisterPage } from './register/register.page';
 import { CatalogPage } from './catalog/catalog.page';
 import { ForgotPasswordPage } from './forgotpassword/forgotpassword.page';
 import { ProfilePage } from './profile/profile.page';
+import { ProductDetailPage } from './product-detail/product-detail.page';
+
 
 const routes: Routes = [
   {
@@ -72,6 +74,28 @@ const routes: Routes = [
     path: 'profile',
     loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
   },
+  
+  {
+    path: 'admin',
+    loadComponent: () =>
+      import('./admin/admin.page').then((m) => m.AdminPage),
+  },
+  {
+    path: 'products',
+    loadChildren: () => import('./products/products.module').then( m => m.ProductsPageModule)
+  },
+  
+    // Otras rutas
+  {
+    path: 'product-detail/:id', // Esto permite recibir el id del producto
+    component: ProductDetailPage
+  },
+
+
+  
+  
+
+
 
 
 

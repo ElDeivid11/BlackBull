@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Router } from '@angular/router'; // Importar Router para navegación
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 
@@ -9,32 +9,34 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./catalog.page.scss'],
   standalone: true,
   imports: [IonicModule, CommonModule],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA], // Esto suprime el error (usado solo como último recurso)
 })
 export class CatalogPage {
   products = [
     {
+      id: '1', // Este es el ID único
       name: 'Bull Pack',
+      description: 'Pack de productos Bull',
       price: 350,
-      image: 'assets/img/product1.png', // Cambia por las rutas correctas
+      image: 'assets/img/product1.png',
     },
     {
-      name: 'Bull Pack',
-      price: 350,
+      id: '2',
+      name: 'Bull Pro',
+      description: 'Producto avanzado Bull',
+      price: 450,
       image: 'assets/img/product2.png',
     },
-    {
-      name: 'Bull Pack',
-      price: 350,
-      image: 'assets/img/product3.png',
-    },
-    {
-      name: 'Bull Pack',
-      price: 350,
-      image: 'assets/img/product4.png',
-    },
+    // Agrega más productos según sea necesario
   ];
 
-  constructor() {}
+  constructor(private router: Router) {}
+
+  openProductDetails(productId: number) {
+    // Navegar a la página de detalles del producto usando su ID
+    this.router.navigate(['/product', productId]);
+  }
+
   openWhatsApp() {
     const phoneNumber = '+51933054275';  // Reemplaza con el número de teléfono que deseas usar
     const message = '¡Hola, me gustaría saber más sobre los productos!';

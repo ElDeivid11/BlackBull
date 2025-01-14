@@ -1,0 +1,17 @@
+<ion-content>
+  <!-- Buscador -->
+  <ion-searchbar [(ngModel)]="searchQuery" debounce="500" show-clear-button="focus" placeholder="Buscar productos..."></ion-searchbar>
+
+  <!-- Lista de productos -->
+  <div class="product-list">
+    <ion-card *ngFor="let product of filteredProducts">
+      <ion-card-header>
+        <ion-card-title>{{ product.name }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <img [src]="product.image" alt="{{ product.name }}" class="product-image" />
+        <p>{{ product.description }}</p>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

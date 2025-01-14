@@ -1,7 +1,6 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <!-- Botón para ir a la página de perfil usando href -->
       <ion-button href="/profile" fill="clear">
         <ion-icon name="person-circle" class="header-icon"></ion-icon>
       </ion-button>
@@ -13,35 +12,26 @@
   </ion-toolbar>
 </ion-header>
 
-
 <ion-content>
-  <!-- Barra de búsqueda -->
   <div class="search-container">
     <ion-searchbar placeholder="Buscar productos"></ion-searchbar>
   </div>
 
- 
-  
-  <!-- Catálogo de productos -->
-  <div class="product-grid">
-    <div class="product-card" *ngFor="let product of products">
-      <img
-        [src]="product.image"
-        alt="{{ product.name }}"
-        class="product-image"
-      />
-      <img
-        src="assets/img/bull-pack.png"
-        alt="Bull Pack"
-        class="product-title-image"
-      />
-     
-      
-    </div>
+  <div class="product-cards">
+    <ion-card *ngFor="let product of products" [routerLink]="['/product-detail', product.id]" class="product-card">
+      <img [src]="product.image" alt="{{ product.name }}" class="product-image" />
+      <ion-card-header>
+        <ion-card-title class="product-name">{{ product.name }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p class="product-description">{{ product.description }}</p>
+        <p class="product-price">${{ product.price | number:'1.2-2' }}</p>
+      </ion-card-content>
+    </ion-card>
+    
     <ion-button color="success" shape="round" (click)="openWhatsApp()">
       <img src="assets/img/WSP.png" alt="WhatsApp Logo" class="whatsapp-logo" />
       Contáctanos
     </ion-button>
-    
   </div>
 </ion-content>

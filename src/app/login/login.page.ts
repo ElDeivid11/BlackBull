@@ -15,16 +15,25 @@ export class LoginPage {
   email: string = '';
   password: string = '';
 
+  // Definir las credenciales para acceder al admin
+  private validAdminEmail: string = 'admin@powerbull.com';
+  private validAdminPassword: string = '12345admin';
+
   constructor(private router: Router, private popoverController: PopoverController) {}
 
   async onSubmit() {
+    // Verificar si las credenciales son correctas
     if (this.email && this.isValidEmail(this.email) && this.password) {
-      console.log('Formulario válido. Procesando inicio de sesión...');
-      // Redirigir al usuario después de un inicio de sesión exitoso
-      this.router.navigate(['/catalog']);
+      if (this.email === this.validAdminEmail && this.password === this.validAdminPassword) {
+        console.log('Credenciales de admin correctas');
+        this.router.navigate(['/admin']);  // Redirige al admin
+      } else {
+        console.log('Credenciales incorrectas, redirigiendo al catálogo');
+        this.router.navigate(['/catalog']);  // Redirige al catálogo
+      }
     } else {
       const message = this.getErrorMessage();
-      this.showPopover(message);
+      this.showPopover(message);  // Muestra el popover con el mensaje de error
     }
   }
 
@@ -48,7 +57,7 @@ export class LoginPage {
 
   async showPopover(message: string) {
     const popover = await this.popoverController.create({
-      component: PopoverContentComponent, // Un componente para el contenido
+      component: PopoverContentComponent, // Componente que muestra el mensaje de error
       componentProps: { message },
       translucent: true,
     });
@@ -74,7 +83,7 @@ export class LoginPage {
   `],
   standalone: true,
   imports: [IonicModule],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA], // Se usa si Ionic se configura como Web Components
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class PopoverContentComponent {
   message!: string;
