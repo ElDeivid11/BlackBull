@@ -1,17 +1,27 @@
-<ion-content>
-  <!-- Buscador -->
-  <ion-searchbar [(ngModel)]="searchQuery" debounce="500" show-clear-button="focus" placeholder="Buscar productos..."></ion-searchbar>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Productos</ion-title>
+  </ion-toolbar>
+</ion-header>
 
-  <!-- Lista de productos -->
-  <div class="product-list">
-    <ion-card *ngFor="let product of filteredProducts">
-      <ion-card-header>
-        <ion-card-title>{{ product.name }}</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <img [src]="product.image" alt="{{ product.name }}" class="product-image" />
-        <p>{{ product.description }}</p>
-      </ion-card-content>
-    </ion-card>
-  </div>
+<ion-content>
+  <!-- Formulario para agregar un nuevo producto -->
+  <form (submit)="addProduct()">
+    <ion-input [(ngModel)]="newProduct.name" name="name" placeholder="Nombre del producto" required></ion-input>
+    <ion-input type="number" [(ngModel)]="newProduct.price" name="price" placeholder="Precio" required></ion-input>
+    <input type="file" (change)="onImageSelected($event)" />
+    <ion-button type="submit">Agregar Producto</ion-button>
+  </form>
+
+  <!-- Listado de productos -->
+  <ion-list>
+    <ion-item *ngFor="let product of products">
+      <ion-label>
+        {{ product.name }}
+        <p>{{ product.price | currency }}</p>
+      </ion-label>
+      <ion-button color="primary" (click)="editProduct(product)">Editar</ion-button>
+      <ion-button *ngIf="product.id" color="danger" (click)="deleteProduct(product.id)">Eliminar</ion-button>
+    </ion-item>
+  </ion-list>
 </ion-content>

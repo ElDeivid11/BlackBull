@@ -1,20 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
-import { IonicModule } from '@ionic/angular';
-
+import { IonicModule } from '@ionic/angular';  // Asegúrate de que IonicModule está importado
 import { ProductsPageRoutingModule } from './products-routing.module';
-
-import { ProductsPage } from './products.page';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    IonicModule,
-    ProductsPageRoutingModule
+    IonicModule,  // Asegúrate de que está incluido
+    ProductsPageRoutingModule,
   ],
-  declarations: [ProductsPage]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class ProductsPageModule {}

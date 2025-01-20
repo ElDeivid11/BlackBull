@@ -1,18 +1,7 @@
-.product-list {
-    padding: 20px;
-  }
-  
-  .product-image {
-    display: block;  /* Asegura que la imagen sea un bloque */
-    margin: 0 auto;  /* Centra la imagen horizontalmente */
-    width: 70%;
+ion-thumbnail {
+  img {
+    width: 100%;
     height: auto;
-    max-height: 200px;
     object-fit: cover;
   }
-  
-  ion-card {
-    margin-bottom: 15px;
-    border-radius: 10px;
-  }
-  
+}
