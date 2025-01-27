@@ -7,6 +7,12 @@ import { RouterModule } from '@angular/router';  // Importar RouterModule
 import { HttpClientModule } from '@angular/common/http';  
 import { ProductsPageModule } from './products/products.module';
 import { ProductsPage } from './products/products.page';
+import { AngularFireModule } from '@angular/fire/compat'; 
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { environment } from 'src/environments/environment.prod';
 
 @NgModule({
   declarations: [AppComponent],  // Aquí solo se declara AppComponent, no LoginPage
@@ -19,6 +25,10 @@ import { ProductsPage } from './products/products.page';
     HttpClientModule, // Asegúrate de que HttpClientModule esté importado aquí
     ProductsPageModule,
     ProductsPage,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule,
+    AngularFireDatabaseModule,
+    AngularFireStorageModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],  // Agrega CUSTOM_ELEMENTS_SCHEMA si estás usando Web Components
   providers: [],

@@ -1,33 +1,33 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Firestore, collectionData, collection, doc, setDoc, deleteDoc, updateDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { Product } from '../models/product.model'; // Define tu modelo Product aquí
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class ProductsService {
-  private apiUrl = 'assets/products.json';  // Aquí debes poner la URL del archivo JSON (o backend si lo tienes)
+  private productsCollection = collection(this.firestore, 'products');
 
-  constructor(private http: HttpClient) {}
+  constructor(private firestore: Firestore) {}
 
-  // Obtener todos los productos
-  getProducts(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
+  getProducts(): Observable<Product[]> {
+    return collectionData(this.productsCollection, { idField: 'id' }) as Observable<Product[]>;
   }
 
-  // Agregar un nuevo producto
-  addProduct(product: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl, product);
+  addProduct(product: Product): Promise<void> {
+    const docRef = doc(this.productsCollection);
+    return setDoc(docRef, product);
   }
 
-  // Eliminar un producto por ID
-  deleteProduct(id: number): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/${id}`);
+  updateProduct(productId: string, product: Partial<Product>): Promise<void> {
+    const docRef = doc(this.firestore, 'products', productId);
+    return updateDoc(docRef, product);
   }
 
-  // Editar un producto (si es necesario)
-  updateProduct(id: number, product: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/${id}`, product);
+  deleteProduct(productId: string): Promise<void> {
+    const docRef = doc(this.firestore, 'products', productId);
+    return deleteDoc(docRef);
   }
 }
 

@@ -9,6 +9,7 @@ import { ProductDetailPage } from './product-detail/product-detail.page';
 
 
 const routes: Routes = [
+  { path: '', redirectTo: 'login' },
   {
     path: 'login',
     component: LoginPage,  // Usar el componente standalone directamente

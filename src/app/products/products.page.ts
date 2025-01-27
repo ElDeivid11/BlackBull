@@ -1,57 +1,47 @@
 import { Component, OnInit } from '@angular/core';
+import { ProductsService } from './products.service';
+import { Product } from '../models/product.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
-import { ProductsService } from './products.service';
-import { Product } from './product.model'; // Si tienes un modelo de producto
+import { IonicModule } from '@ionic/angular'; 
 
 @Component({
   selector: 'app-products',
-  templateUrl: './products.page.html',
-  styleUrls: ['./products.page.scss'],
   standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-  ]
+  imports: [IonicModule, FormsModule, CommonModule],
+  templateUrl: './products.page.html',
+  styleUrls: ['./products.page.scss']
 })
 export class ProductsPage implements OnInit {
-  products: Product[] = []; // Listado de productos
-  newProduct: Product = { name: '', price: 0 }; // Propiedad para el nuevo producto
+  products: Product[] = [];
+  newProduct: Product = { name: '', price: 0, image: '' };
 
-  constructor(private productService: ProductsService) {}
+  constructor(private productsService: ProductsService) {}
 
   ngOnInit() {
-    this.productService.getProducts().subscribe(data => {
+    this.loadProducts();
+  }
+
+  loadProducts() {
+    this.productsService.getProducts().subscribe(data => {
       this.products = data;
     });
   }
 
   addProduct() {
-    // Validar que el producto tenga datos antes de añadirlo
-    if (this.newProduct.name && this.newProduct.price > 0) {
-      this.productService.addProduct(this.newProduct).subscribe(product => {
-        this.products.push(product);  // Añadir el producto al listado
-        this.newProduct = { name: '', price: 0 };  // Limpiar el formulario
-      });
-    }
-  }
-
-  deleteProduct(productId: number) {
-    this.productService.deleteProduct(productId).subscribe(() => {
-      this.products = this.products.filter(p => p.id !== productId);  // Eliminar el producto
+    this.productsService.addProduct(this.newProduct).then(() => {
+      this.newProduct = { name: '', price: 0, image: '' };
     });
   }
 
-  onImageSelected(event: any) {
-    const file = event.target.files[0];
-    // Aquí puedes manejar la carga de imágenes, por ejemplo, subiéndola a un servidor
-    console.log(file);
+  deleteProduct(productId: string) {
+    this.productsService.deleteProduct(productId).then(() => {
+      this.products = this.products.filter(p => p.id !== productId);
+    });
   }
 
-  editProduct(product: Product) {
-    // Implementa la lógica de edición aquí, puede ser un formulario de edición
-    console.log('Editando producto', product);
+  editProduct(productId: string) {
+    const updatedProduct: Partial<Product> = { name: 'Nuevo Nombre' }; // Ejemplo de actualización
+    this.productsService.updateProduct(productId, updatedProduct);
   }
 }
