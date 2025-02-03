@@ -1,111 +1,29 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { LoginPage } from './login/login.page';  // Importar LoginPage directamente
-import { RegisterPage } from './register/register.page';
-import { CatalogPage } from './catalog/catalog.page';
-import { ForgotPasswordPage } from './forgotpassword/forgotpassword.page';
-import { ProfilePage } from './profile/profile.page';
-import { ProductDetailPage } from './product-detail/product-detail.page';
-
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { NoAuthGuard } from './guards/no-auth.guard';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'login' },
-  {
-    path: 'login',
-    component: LoginPage,  // Usar el componente standalone directamente
-  },
-
-  {
-    path: 'register',
-    component: RegisterPage
-  },
-
-  {
-    path: 'forgotpassword',
-    component: ForgotPasswordPage,
-  },
-
-  {
-    path: 'catalog',
-    component: CatalogPage, // Si es standalone
-  },
-
-  {
-    path: 'profile',
-    component: ProfilePage, // Si es standalone
-  },
-
   {
     path: '',
-    redirectTo: 'login',
-    pathMatch: 'full',
-  },
-
-  {
-    path: '',
-    redirectTo: 'profile',
-    pathMatch: 'full',
-  },
-
-  {
-    path: '',
-    redirectTo: 'catalog',
-    pathMatch: 'full',
+    redirectTo: 'auth',
+    pathMatch: 'full' // ✅ Se agregó pathMatch: 'full'
   },
   {
-    path: '',
-    redirectTo: 'forgotpassword',
-    pathMatch: 'full',
-  },
-  
-  {
-    path: 'register',
-    loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
+    path: 'auth',
+    loadChildren: () => import('./pages/auth/auth.module').then(m => m.AuthPageModule), canActivate: [NoAuthGuard]
   },
   {
-    path: 'catalog',
-    loadChildren: () => import('./catalog/catalog.module').then( m => m.CatalogPageModule)
+    path: 'main',
+    loadChildren: () => import('./pages/main/main.module').then(m => m.MainPageModule), canActivate: [AuthGuard]
   },
-  {
-    path: 'forgotpassword',
-    loadChildren: () => import('./forgotpassword/forgotpassword.module').then(m => m.ForgotPasswordPageModule)
-
-  },
-  {
-    path: 'profile',
-    loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
-  },
-  
-  {
-    path: 'admin',
-    loadComponent: () =>
-      import('./admin/admin.page').then((m) => m.AdminPage),
-  },
-  {
-    path: 'products',
-    loadChildren: () => import('./products/products.module').then( m => m.ProductsPageModule)
-  },
-  
-    // Otras rutas
-  {
-    path: 'product-detail/:id', // Esto permite recibir el id del producto
-    component: ProductDetailPage
-  },
-
-
-  
-  
-
-
-
-
-
-  
-
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],  // Configurar el enrutamiento
-  exports: [RouterModule],
+  imports: [
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+  ],
+  exports: [RouterModule]
 })
 export class AppRoutingModule {}
+
